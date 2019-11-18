@@ -1,34 +1,57 @@
 package muei.riws.tropespace.tropespace.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Document(indexName = "tropes", type = "_doc")
 public class Trope {
-
+	
+	private String id;
     private String name;
     private String content;
+    private String url;
     private String laconic;
+    @JsonProperty("related_tropes")
     private List<String> relatedTropes;
-    private Map<String, List<String>> media;
+    private List<Media> media;
 
     public Trope() {
 
     }
 
-    public Trope(String name, String content, String laconic, List<String> relatedTropes,
-            Map<String, List<String>> media) {
+/*    public Trope(String name, 
+    		String content, 
+    		String url, 
+    		String laconic, 
+    		List<String> relatedTropes,
+    		List<Media> media) {
         this.name = name;
         this.content = content;
+        this.url = url;
         this.laconic = laconic;
         this.relatedTropes = relatedTropes;
         this.media = media;
-    }
+    }*/
 
-    @Id
+	@Id
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	
     public String getName() {
         return name;
     }
@@ -44,6 +67,14 @@ public class Trope {
     public void setContent(String content) {
         this.content = content;
     }
+
+    public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
     public String getLaconic() {
         return laconic;
@@ -61,11 +92,11 @@ public class Trope {
         this.relatedTropes = relatedTropes;
     }
 
-    public Map<String, List<String>> getMedia() {
+    public List<Media> getMedia() {
         return media;
     }
 
-    public void setMedia(Map<String, List<String>> media) {
+    public void setMedia(List<Media> media) {
         this.media = media;
     }
 
