@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link rel="stylesheet" href="https://static.tvtropes.org/design/assets/bundle.css?rev=279"/>
+
+	<title>Búsqueda de tropo</title>
+</head>
+
+<body class="">
+	<header id="main-header-bar" class="headroom-element">
+		<div id="main-header-bar-inner">
+			<span id="header-spacer-left" class="header-spacer"></span>
+			
+			<a href="/" id="main-header-logoButton" class="no-dev"></a>
+			<h1 style="text-align: center; position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto">Buscar</h1>
+			
+			<span id="header-spacer-right" class="header-spacer"></span>
+		</div>
+	</header>
+	<br>
+	<section  style="
+		 text-align:center;
+		 margin:0px auto;
+		 height:auto;
+		 width:450px;
+		 background:#fff;
+		 box-shadow:0 0 7px 0 rgba(0,0,0,.08);
+		 border-radius:8px;
+		 left:0;
+		 top:0;
+		 box-shadow:0 0 7px 0 rgba(0,0,0,.08);
+		 box-sizing:border-box;
+		 padding:32px">
+		 <div class="action-bar mobile-off">
+				Texto a buscar
+		</div>
+		<form class="search">
+    		<input class="search-box" type="text" placeholder="Buscar" value="" required="">
+    		<input class="submit-button" type="submit" value="&#x2315">
+		</form>
+		<hr>
+		<div id="main-content-sidebar">
+			<div class="sidebar-item">
+				<p class="sidebar-item-title" data-title="Buscar por">Buscar por</p>
+				<ul class="padded font-s" style="text-align: left">
+					<li><input type="radio" name="search-by" checked>Nombre</input></li>
+					<li><input type="radio" name="search-by">Contenido</input></li>
+					<li><input type="radio" name="search-by">Medios</input></li>
+				</ul>
+			</div>
+			<div class="sidebar-item">
+				<p class="sidebar-item-title" data-title="Filtros">Filtros</p>
+				<ul class="padded font-s" style="text-align: left">
+					Por lo menos
+					<li><input type="number" min=0 max=999 name="search-by" value=0 style="width:40px"> tipos de medios relacionados</input></li>
+					<li><input type="number" min=0 max=999 name="search-by" value=0 style="width:40px"> medios relacionados</input></li>
+					<li><input type="number" min=0 max=999 name="search-by" value=0 style="width:40px"> tropos relacionados</input></li>
+				</ul>
+			</div>
+			<div class="sidebar-item">
+				<p class="sidebar-item-title" data-title="Ordenar por">Ordenar por</p>
+				<ul class="padded font-s" style="text-align: left">
+					<li><input type="radio" name="sort-by" checked>Nombre</input></li>
+					<li><input type="radio" name="sort-by">Número de medios relacionados</input></li>
+					<li><input type="radio" name="sort-by">Número de tropos relacionados</input></li>
+				</ul>
+			</div>
+		</div>
+		<hr>
+		<button class="action-bar mobile-off" style="font-weight:heavy; font-size:16px; width:100%">Iniciar búsqueda</button>
+
+	</section>
+
+</body>
+
+</html>
