@@ -23,6 +23,9 @@ public class Trope {
     @JsonProperty("related_tropes")
     private List<String> relatedTropes;
     private List<Media> media;
+    private Long mediaTypeCount;
+    private Long mediaUrlsCount;
+    private Integer relatedTropesCount;
 
     public Trope() {
 
@@ -98,6 +101,30 @@ public class Trope {
 
     public void setMedia(List<Media> media) {
         this.media = media;
+    }
+
+    public Long getMediaTypeCount() {
+        return mediaTypeCount;
+    }
+
+    public void setMediaTypeCount(Long mediaTypeCount) {
+        this.mediaTypeCount = mediaTypeCount;
+    }
+
+    public Long getMediaUrlsCount() {
+        return mediaUrlsCount;
+    }
+
+    public void setMediaUrlsCount(Long mediaUrlsCount) {
+        this.mediaUrlsCount = mediaUrlsCount;
+    }
+
+    public Integer getRelatedTropesCount() {
+        return relatedTropesCount;
+    }
+
+    public void setRelatedTropesCount(Integer relatedTropesCount) {
+        this.relatedTropesCount = relatedTropesCount;
     }
 
 }

@@ -8,12 +8,23 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 
 public interface TropeRepository extends ElasticsearchRepository<Trope, String>{
     
-    List<Trope> findByName(String name);
+    // TODO: todos los metodos deben ser ordenados, en este caso es por nombre del tropo
+    // Esto es así para que búsquedas sucesivas sean consistentes a la hora de implementar paginación
+    // (Page, Pageable)
     
-    List<Trope> findByNameOrLaconicOrContent(String keywords);
+    List<Trope> findByNameOrderByName(String name);
     
-    List<Trope> findByMedia(List<String> media);
+    List<Trope> findByNameOrLaconicOrContentOrderByName(String keywords);
     
-    List<Trope> findByRelatedTropes(String relatedTropes);
+    List<Trope> findByMediaOrderByName(List<String> media);
+    
+    List<Trope> findByRelatedTropesOrderByName(String relatedTropes);
+    
+    // TODO: las queries automaticas con "greater than" lo hacen sobre el propio criterio de búsqueda (p.ej: finbByMediaUrlsCountGreaterThan)
+    // Para lo que necesitamos hacer, habrá que construir el string de la query y pasarselo a la anotación "@Query" encima de la firma del metodo
+    
+    // EJEMPLO: 
+    // @Query("{\"bool\" : {\"must\" : {\"field\" : {\"name\" : \"?0\"}}}}")
+    // Page<Book> findByName(String name);
 
 }
