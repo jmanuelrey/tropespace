@@ -42,7 +42,7 @@ public class TropeController {
     
     @GetMapping("/tropes/searchByTropeName")
     public String searchTropesByTropeName(@RequestAttribute String tropeName, @RequestAttribute Filter filter, Model model) {
-        model.addAttribute("tropes",tropeService.searchTropesByTropeName(tropeName, filter));
+        model.addAttribute("tropes",tropeService.searchTropesByRelatedTropeName(tropeName, filter));
         return "resultPage";
     }
 
