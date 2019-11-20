@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link rel="stylesheet" href="https://static.tvtropes.org/design/assets/bundle.css?rev=279"/>
+
+	<!-- TODO: pasar nombre del tropo y mostrar -->
+	<title>Tropo</title>
+</head>
+
+<body class="">
+	<header id="main-header-bar" class="headroom-element">
+		<div id="main-header-bar-inner">
+			<span id="header-spacer-left" class="header-spacer"></span>
+			
+			<a href="https://tvtropes.org" id="main-header-logoButton" class="no-dev"></a>
+			
+			<span id="header-spacer-right" class="header-spacer"></span>
+			<h1 style="text-align: center; width:200px; position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto">{{trope.name}}</h1>
+		</div>
+	</header>
+	<br>
+	
+    <!-- TODO: botón para volver a la búsqueda -->
+	<div id="main-container">
+	    <div id="action-bar-top" class="action-bar mobile-off"></div>
+	    <div id="main-content" class="page-Article ">
+	        <article id="main-entry" class="with-sidebar">
+	            <h1 itemprop="headline" class="entry-title">{{trope.name}}</h1>
+
+	            <div id="main-article" class="article-content retro-folders">
+	            	{{trope.laconic}}
+	            	<hr>
+	            	{{trope.content}}
+	                <hr>
+	                <h2> Medios relacionados:</h2>
+	                <p></p>
+	                <div class="folderlabel toggle-all-folders-button" onclick="toggleAllFolders();">&nbsp;&nbsp;&nbsp;&nbsp;abrir/cerrar todas las carpetas&nbsp; </div>
+	                <p></p>
+	                <div class="folderlabel" onclick="togglefolder('folder0');">&nbsp;&nbsp;&nbsp;&nbsp;Anime &amp; Manga&nbsp;</div>
+	                <div id="folder0" class="folder" isfolder="true" style="display:block;">
+	                    <ul>
+	                        <li> <em><a class="twikilink" href="/pmwiki/pmwiki.php/Manga/HekikaiNoAion" title="/pmwiki/pmwiki.php/Manga/HekikaiNoAion">Hekikai No Aion</a></em>: Seine lives in a cardboard since she's <a class="twikilink" href="/pmwiki/pmwiki.php/Main/ReallySevenHundredYearsOld" title="/pmwiki/pmwiki.php/Main/ReallySevenHundredYearsOld">Really 700 Years Old</a> and has no family. Even after Tatsuya took her home, she still insists to sleep inside her beloved cardboard.
+	                        </li>
+	                    </ul>
+	                </div>
+	                <p></p>
+	                <div class="folderlabel" onclick="togglefolder('folder1');">&nbsp;&nbsp;&nbsp;&nbsp;Comic Books&nbsp;</div>
+	                <div id="folder1" class="folder" isfolder="true" style="display:block;">
+	                    <ul>
+	                        <li> <em><a class="twikilink" href="/pmwiki/pmwiki.php/ComicBook/TheMaxx" title="/pmwiki/pmwiki.php/ComicBook/TheMaxx">The Maxx</a></em> used to live in a cardboard box until Julie took him in.
+	                        </li>
+	                    </ul>
+	                </div>
+	                <p></p>
+	                <h2> Tropos relacionados:</h2>
+	                <p></p>
+	            </div>
+	        </article>
+
+	        <div id="main-content-sidebar">
+	        	<!-- TODO: rellenar con estadísticas -->
+	        </div>
+	    </div>
+	    <div id="action-bar-bottom" class="action-bar tablet-off">
+	        <a href="#top-of-page" class="scroll-to-top dead-button" onclick="$('html, body').animate({scrollTop : 0},500);">Top</a>
+	        </nav>
+	    </div>
+	</div>
+</body>
+
+</html>
