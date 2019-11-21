@@ -9,7 +9,7 @@
 	<link rel="stylesheet" th:href="@{/css/bundle.css}"/>
 
 	<!-- TODO: pasar nombre del tropo y mostrar -->
-	<title>Tropo</title>
+	<title th:text="${trope.name}">Tropo</title>
 </head>
 
 <script>
@@ -60,7 +60,7 @@
 								<td><span th:text="${media.mediaType}"> Nombre </span></td>
 								<td>
 									<ul th:each="media_url : ${media.mediaUrls}">
-										<li><span th:text="${media_url}"> URL </span></li>
+										<li><a th:text="${media_url}" th:href="@{'https://tvtropes.org/pmwiki/pmwiki.php/' + ${media.mediaType} +'/' + ${#strings.replace(media_url, ' ', '')}}"> URL </a></li>
 									</ul>
 								</td>
 							</tr>
@@ -75,7 +75,7 @@
 								<td colspan="2">El tropo no tiene ningún otro tropo relacionado.</td>
 							</tr>
 							<tr th:each="relatedTrope : ${trope.relatedTropes}">
-								<td><span th:text="${relatedTrope}"> URL </span></td>
+								<td><a th:text="${relatedTrope}" th:href="@{'https://tvtropes.org/pmwiki/pmwiki.php/Main/' + ${#strings.replace(relatedTrope, ' ', '')}}"> URL </a></td>
 							</tr>
 						</tbody>
 					</table>

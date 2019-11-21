@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -28,16 +25,25 @@ public class TropeController {
     
     // TODO quitar filters, meter parámetros
     @GetMapping("/search")
-    public String searchTropes(@RequestParam("searchBoxText") String searchBoxText, @RequestAttribute(required = false) Filter filter, Model model) {
+    public String searchTropes(@RequestParam("searchBoxText") String searchBoxText,
+    		@RequestParam("searchBy") String searchBy,
+    		@RequestParam(defaultValue = "0") Integer relatedMediaMin,
+    		@RequestParam(defaultValue = "0") Integer relatedTropesMin,
+    		@RequestParam(defaultValue = "*") String mediaType,
+    		@RequestParam("sortBy") String sortBy,
+    		Model model) {
+    	System.out.println(searchBy);
+    	System.out.println(sortBy);
         // We set the values needed by the template (TODO: pensar si enviarle tropo a tropo o la lista entera de tropos)
+    	Filter filter = new Filter(Filter.SearchBy.valueOf(searchBy), relatedMediaMin, relatedTropesMin, mediaType, Filter.SortBy.valueOf(sortBy));
     	resultTropes = tropeService.searchTropes(searchBoxText, filter);
+
     	model.addAttribute("requestedString", searchBoxText);
         model.addAttribute("tropes", resultTropes);
         // We return the template name as a string (TODO: tropePage es un nombre de ejemplo para la página con la lista de tropos)
         return "result-page";
     }
     
-    //@SuppressWarnings("unchecked")
 	@GetMapping("/trope")
     public String showTrope(@RequestParam("id") String id, Model model) {
     	Trope trope = new Trope();

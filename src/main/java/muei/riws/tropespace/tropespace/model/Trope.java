@@ -31,20 +31,6 @@ public class Trope {
 
     }
 
-/*    public Trope(String name, 
-    		String content, 
-    		String url, 
-    		String laconic, 
-    		List<String> relatedTropes,
-    		List<Media> media) {
-        this.name = name;
-        this.content = content;
-        this.url = url;
-        this.laconic = laconic;
-        this.relatedTropes = relatedTropes;
-        this.media = media;
-    }*/
-
 	@Id
 	public String getId() {
 		return id;
