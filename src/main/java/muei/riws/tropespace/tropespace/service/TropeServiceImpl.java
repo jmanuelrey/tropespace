@@ -60,17 +60,17 @@ public class TropeServiceImpl implements TropeService{
     
     private List<Trope> searchTropesByMedia(String mediaName, Filter filter, String sortBy) {
     	if(filter.getMediaType() != "" && !filter.getMediaType().contentEquals("*")) {
-    		return tropeRepository.findByNameWithFilterAndOrder(mediaName, filter.getRelatedTropesNumber(), filter.getMediaNumber(), filter.getMediaType(), sortBy);
+    		return tropeRepository.findByMediaWithFilterAndOrder(mediaName, filter.getRelatedTropesNumber(), filter.getMediaNumber(), filter.getMediaType(), sortBy);
     	}
-		return tropeRepository.findByNameWithFilterAndOrder(mediaName, filter.getRelatedTropesNumber(), filter.getMediaNumber(), sortBy);
+		return tropeRepository.findByMediaWithFilterAndOrder(mediaName, filter.getRelatedTropesNumber(), filter.getMediaNumber(), sortBy);
     	
     }
     
-    private List<Trope> searchTropesByRelatedTrope(String mediaName, Filter filter, String sortBy) {
+    private List<Trope> searchTropesByRelatedTrope(String relatedTropeName, Filter filter, String sortBy) {
     	if(filter.getMediaType() != "" && !filter.getMediaType().contentEquals("*")) {
-    		return tropeRepository.findByNameWithFilterAndOrder(mediaName, filter.getRelatedTropesNumber(), filter.getMediaNumber(), filter.getMediaType(), sortBy);
+    		return tropeRepository.findByRelatedTropeWithFilterAndOrder(relatedTropeName, filter.getRelatedTropesNumber(), filter.getMediaNumber(), filter.getMediaType(), sortBy);
     	}
-		return tropeRepository.findByNameWithFilterAndOrder(mediaName, filter.getRelatedTropesNumber(), filter.getMediaNumber(), sortBy);
+		return tropeRepository.findByRelatedTropeWithFilterAndOrder(relatedTropeName, filter.getRelatedTropesNumber(), filter.getMediaNumber(), sortBy);
     	
     }
 

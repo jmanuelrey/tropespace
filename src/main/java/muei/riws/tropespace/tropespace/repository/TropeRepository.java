@@ -56,6 +56,7 @@ public interface TropeRepository extends ElasticsearchRepository<Trope, String>{
 				+ "{\"range\" : { \"related_tropes_count\": {\"gt\" : \"?1\"} } }," 
 				+ "{\"range\" : { \"media_urls_count\": {\"gt\" : \"?2\"} } }"
 				+"] } }, "
+		+"\"highlight\": { \"fields\": \"content\"},"
 		+"\"sort\": { \"?3\": \"asc\"}")
     List<Trope> findByContentWithFilterAndOrder(String content, int relatedTropesMin, int relatedMediaMin, String sortBy);
     
@@ -74,6 +75,7 @@ public interface TropeRepository extends ElasticsearchRepository<Trope, String>{
 								+ "\"must\": ["
 									+ "{\"match\": {\"media.media_type\" : \"?3\"} }"
 								+ "] } } } } ] } }, "
+		+"\"highlight\": { \"fields\": \"content\"},"
 		+"\"sort\": { \"?4\": \"asc\"}")
     List<Trope> findByContentWithFilterAndOrder(String content, int relatedTropesMin, int relatedMediaMin, String mediaType, String sortBy);
     
@@ -102,5 +104,31 @@ public interface TropeRepository extends ElasticsearchRepository<Trope, String>{
 								+ "] } } } } ] } }, "
 		+"\"sort\": { \"?4\": \"asc\"}")
     List<Trope> findByMediaWithFilterAndOrder(String name, int relatedTropesMin, int relatedMediaMin, String mediaType, String sortBy);
+    
+    
+    // Métodos de búsqueda sobre los tropos relacionados
+	
+    @Query("{\"bool\" "
+    		+ ": {\"must\": ["
+    			+ "{\"match\": {\"name\" : \"?0\"} },"
+				+ "{\"range\" : { \"related_tropes_count\": {\"gt\" : \"?1\"} } }," 
+				+ "{\"range\" : { \"media_urls_count\": {\"gt\" : \"?2\"} } }"
+				+"] } }, "
+		+"\"sort\": { \"?3\": \"asc\"}")
+    List<Trope> findByRelatedTropeWithFilterAndOrder(String name, int relatedTropesMin, int relatedMediaMin, String sortBy);
+    
+
+    @Query("{\"bool\" "
+    		+ ": {\"must\": ["
+    			+ "{\"match\": {\"name\" : \"?0\"} },"
+				+ "{\"range\" : { \"related_tropes_count\": {\"gt\" : \"?1\"} } }," 
+				+ "{\"range\" : { \"media_urls_count\": {\"gt\" : \"?2\"} } }," 
+				+ "{\"nested\": { \"path\": \"media\", \"query\": {"
+							+ "\"bool\": {"
+								+ "\"must\": ["
+									+ "{\"match\": {\"media.media_type\" : \"?3\"} }"
+								+ "] } } } } ] } }, "
+		+"\"sort\": { \"?4\": \"asc\"}")
+    List<Trope> findByRelatedTropeWithFilterAndOrder(String name, int relatedTropesMin, int relatedMediaMin, String mediaType, String sortBy);
 
 }

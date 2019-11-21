@@ -32,8 +32,6 @@ public class TropeController {
     		@RequestParam(defaultValue = "*") String mediaType,
     		@RequestParam("sortBy") String sortBy,
     		Model model) {
-    	System.out.println(searchBy);
-    	System.out.println(sortBy);
         // We set the values needed by the template (TODO: pensar si enviarle tropo a tropo o la lista entera de tropos)
     	Filter filter = new Filter(Filter.SearchBy.valueOf(searchBy), relatedMediaMin, relatedTropesMin, mediaType, Filter.SortBy.valueOf(sortBy));
     	resultTropes = tropeService.searchTropes(searchBoxText, filter);
