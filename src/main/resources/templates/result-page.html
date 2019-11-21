@@ -7,8 +7,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<link rel="stylesheet"
-	href="https://static.tvtropes.org/design/assets/bundle.css?rev=279" />
+	<link rel="stylesheet" th:href="@{/css/bundle.css}"/>
 
 <!-- TODO: pasar nombre del tropo y mostrar -->
 <title>Resultados</title>
@@ -59,7 +58,7 @@
 									<td colspan="2">Ningún tropo concide con su búsqueda</td>
 								</tr>
 								<tr th:each="trope : ${tropes}">
-									<td><a th:text="${trope.name}" th:href="@{'/trope/'}"> Nombre </a></td>
+									<td><a th:text="${trope.name}" th:href="@{'trope?id='+${trope.id}}" > Nombre </a></td>
 									<td><a th:text="${trope.url}" th:href="${trope.url}"> URL </a></td>
 								</tr>
 							</tbody>

@@ -18,6 +18,8 @@ public interface TropeRepository extends ElasticsearchRepository<Trope, String>{
     // Para lo que necesitamos hacer, habrá que construir el string de la query y pasarselo a la anotación "@Query" encima de la firma del metodo
     
 
+	// Métodos de búsqueda sobre el nombre
+	
     @Query("{\"bool\" "
     		+ ": {\"must\": ["
     			+ "{\"match\": {\"name\" : \"?0\"} },"
@@ -40,5 +42,65 @@ public interface TropeRepository extends ElasticsearchRepository<Trope, String>{
 								+ "] } } } } ] } }, "
 		+"\"sort\": { \"?4\": \"asc\"}")
     List<Trope> findByNameWithFilterAndOrder(String name, int relatedTropesMin, int relatedMediaMin, String mediaType, String sortBy);
+
+
+	// Métodos de búsqueda sobre todo el contenido
+
+    @Query("{\"bool\" : { "
+    		+ " \"should\": ["
+				+ "{\"match\": {\"name\" : \"?0\"} },"
+				+ "{\"match\": {\"content\" : \"?0\"} },"
+				+ "{\"match\": {\"laconic\" : \"?0\"} }"
+    		+ "],"
+    		+ "\"must\": ["
+				+ "{\"range\" : { \"related_tropes_count\": {\"gt\" : \"?1\"} } }," 
+				+ "{\"range\" : { \"media_urls_count\": {\"gt\" : \"?2\"} } }"
+				+"] } }, "
+		+"\"sort\": { \"?3\": \"asc\"}")
+    List<Trope> findByContentWithFilterAndOrder(String content, int relatedTropesMin, int relatedMediaMin, String sortBy);
+    
+
+    @Query("{\"bool\" : { "
+    		+ " \"should\": ["
+				+ "{\"match\": {\"name\" : \"?0\"} },"
+				+ "{\"match\": {\"content\" : \"?0\"} },"
+				+ "{\"match\": {\"laconic\" : \"?0\"} }"
+    		+ "],"
+    		+ "\"must\": ["
+				+ "{\"range\" : { \"related_tropes_count\": {\"gt\" : \"?1\"} } }," 
+				+ "{\"range\" : { \"media_urls_count\": {\"gt\" : \"?2\"} } }," 
+				+ "{\"nested\": { \"path\": \"media\", \"query\": {"
+							+ "\"bool\": {"
+								+ "\"must\": ["
+									+ "{\"match\": {\"media.media_type\" : \"?3\"} }"
+								+ "] } } } } ] } }, "
+		+"\"sort\": { \"?4\": \"asc\"}")
+    List<Trope> findByContentWithFilterAndOrder(String content, int relatedTropesMin, int relatedMediaMin, String mediaType, String sortBy);
+    
+    
+    // Métodos de búsqueda sobre los medios
+	
+    @Query("{\"bool\" "
+    		+ ": {\"must\": ["
+    			+ "{\"match\": {\"name\" : \"?0\"} },"
+				+ "{\"range\" : { \"related_tropes_count\": {\"gt\" : \"?1\"} } }," 
+				+ "{\"range\" : { \"media_urls_count\": {\"gt\" : \"?2\"} } }"
+				+"] } }, "
+		+"\"sort\": { \"?3\": \"asc\"}")
+    List<Trope> findByMediaWithFilterAndOrder(String name, int relatedTropesMin, int relatedMediaMin, String sortBy);
+    
+
+    @Query("{\"bool\" "
+    		+ ": {\"must\": ["
+    			+ "{\"match\": {\"name\" : \"?0\"} },"
+				+ "{\"range\" : { \"related_tropes_count\": {\"gt\" : \"?1\"} } }," 
+				+ "{\"range\" : { \"media_urls_count\": {\"gt\" : \"?2\"} } }," 
+				+ "{\"nested\": { \"path\": \"media\", \"query\": {"
+							+ "\"bool\": {"
+								+ "\"must\": ["
+									+ "{\"match\": {\"media.media_type\" : \"?3\"} }"
+								+ "] } } } } ] } }, "
+		+"\"sort\": { \"?4\": \"asc\"}")
+    List<Trope> findByMediaWithFilterAndOrder(String name, int relatedTropesMin, int relatedMediaMin, String mediaType, String sortBy);
 
 }

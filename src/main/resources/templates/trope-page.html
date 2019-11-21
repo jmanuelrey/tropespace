@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<link rel="stylesheet" href="https://static.tvtropes.org/design/assets/bundle.css?rev=279"/>
+	<link rel="stylesheet" th:href="@{/css/bundle.css}"/>
 
 	<!-- TODO: pasar nombre del tropo y mostrar -->
 	<title>Tropo</title>
@@ -32,7 +32,7 @@
 			<a href="https://tvtropes.org" id="main-header-logoButton" class="no-dev"></a>
 			
 			<span id="header-spacer-right" class="header-spacer"></span>
-			<h1 style="text-align: center; width:200px; position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto">{{trope.name}}</h1>
+			<h1 style="text-align: center; width:200px; position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto">Tropespace</h1>
 		</div>
 	</header>
 	<br>
@@ -42,35 +42,43 @@
 	    <div id="action-bar-top" class="action-bar mobile-off"></div>
 	    <div id="main-content" class="page-Article ">
 	        <article id="main-entry" class="with-sidebar">
-	            <h1 itemprop="headline" class="entry-title">{{trope.name}}</h1>
+	            <h1 class="entry-title" th:text="${trope.name}"></h1>
 
 	            <div id="main-article" class="article-content retro-folders">
-	            	{{trope.laconic}}
+	            	<span th:text="${trope.laconic}"></span>
 	            	<hr>
-	            	{{trope.content}}
+	            	<span th:text="${trope.content}"></span>
 	                <hr>
 	                <h2> Medios relacionados:</h2>
 	                <p></p>
-	                <div class="folderlabel toggle-all-folders-button" onclick="toggleAllFolders();">&nbsp;&nbsp;&nbsp;&nbsp;abrir/cerrar todas las carpetas&nbsp; </div>
-	                <p></p>
-	                <div class="folderlabel" onclick="togglefolder('folder0');">&nbsp;&nbsp;&nbsp;&nbsp;Anime &amp; Manga&nbsp;</div>
-	                <div id="folder0" class="folder" isfolder="true" style="display:block;">
-	                    <ul>
-	                        <li> <em><a class="twikilink" href="/pmwiki/pmwiki.php/Manga/HekikaiNoAion" title="/pmwiki/pmwiki.php/Manga/HekikaiNoAion">Hekikai No Aion</a></em>: Seine lives in a cardboard since she's <a class="twikilink" href="/pmwiki/pmwiki.php/Main/ReallySevenHundredYearsOld" title="/pmwiki/pmwiki.php/Main/ReallySevenHundredYearsOld">Really 700 Years Old</a> and has no family. Even after Tatsuya took her home, she still insists to sleep inside her beloved cardboard.
-	                        </li>
-	                    </ul>
-	                </div>
-	                <p></p>
-	                <div class="folderlabel" onclick="togglefolder('folder1');">&nbsp;&nbsp;&nbsp;&nbsp;Comic Books&nbsp;</div>
-	                <div id="folder1" class="folder" isfolder="true" style="display:block;">
-	                    <ul>
-	                        <li> <em><a class="twikilink" href="/pmwiki/pmwiki.php/ComicBook/TheMaxx" title="/pmwiki/pmwiki.php/ComicBook/TheMaxx">The Maxx</a></em> used to live in a cardboard box until Julie took him in.
-	                        </li>
-	                    </ul>
-	                </div>
+	                <table>
+						<tbody>
+							<tr th:if="${trope.media.empty}">
+								<td colspan="2">El tropo no aparece en ningún medio.</td>
+							</tr>
+							<tr th:each="media : ${trope.media}">
+								<td><span th:text="${media.mediaType}"> Nombre </span></td>
+								<td>
+									<ul th:each="media_url : ${media.mediaUrls}">
+										<li><span th:text="${media_url}"> URL </span></li>
+									</ul>
+								</td>
+							</tr>
+						</tbody>
+					</table>
 	                <p></p>
 	                <h2> Tropos relacionados:</h2>
 	                <p></p>
+	                <table>
+						<tbody>
+							<tr th:if="${trope.relatedTropes.empty}">
+								<td colspan="2">El tropo no tiene ningún otro tropo relacionado.</td>
+							</tr>
+							<tr th:each="relatedTrope : ${trope.relatedTropes}">
+								<td><span th:text="${relatedTrope}"> URL </span></td>
+							</tr>
+						</tbody>
+					</table>
 	            </div>
 	        </article>
 
