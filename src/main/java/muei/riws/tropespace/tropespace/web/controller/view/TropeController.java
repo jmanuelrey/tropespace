@@ -51,6 +51,8 @@ public class TropeController {
     			trope = tr;
     		}
     	}
+    	
+    	System.out.println(trope.getContent().replace("\n", "\\n"));
 
     	model.addAttribute("trope", trope);
     	

@@ -36,10 +36,10 @@ public interface TropeRepository extends ElasticsearchRepository<Trope, String>{
 				+ "{\"range\" : { \"related_tropes_count\": {\"gt\" : \"?1\"} } }," 
 				+ "{\"range\" : { \"media_urls_count\": {\"gt\" : \"?2\"} } }," 
 				+ "{\"nested\": { \"path\": \"media\", \"query\": {"
-							+ "\"bool\": {"
-								+ "\"must\": ["
-									+ "{\"match\": {\"media.media_type\" : \"?3\"} }"
-								+ "] } } } } ] } }, "
+					+ "\"bool\": {"
+						+ "\"must\": ["
+							+ "{\"match\": {\"media.media_type\" : \"?3\"} }"
+						+ "] } } } } ] } }, "
 		+"\"sort\": { \"?4\": \"asc\"}")
     List<Trope> findByNameWithFilterAndOrder(String name, int relatedTropesMin, int relatedMediaMin, String mediaType, String sortBy);
 
@@ -71,10 +71,10 @@ public interface TropeRepository extends ElasticsearchRepository<Trope, String>{
 				+ "{\"range\" : { \"related_tropes_count\": {\"gt\" : \"?1\"} } }," 
 				+ "{\"range\" : { \"media_urls_count\": {\"gt\" : \"?2\"} } }," 
 				+ "{\"nested\": { \"path\": \"media\", \"query\": {"
-							+ "\"bool\": {"
-								+ "\"must\": ["
-									+ "{\"match\": {\"media.media_type\" : \"?3\"} }"
-								+ "] } } } } ] } }, "
+					+ "\"bool\": {"
+						+ "\"must\": ["
+							+ "{\"match\": {\"media.media_type\" : \"?3\"} }"
+						+ "] } } } } ] } }, "
 		+"\"highlight\": { \"fields\": \"content\"},"
 		+"\"sort\": { \"?4\": \"asc\"}")
     List<Trope> findByContentWithFilterAndOrder(String content, int relatedTropesMin, int relatedMediaMin, String mediaType, String sortBy);
@@ -84,33 +84,36 @@ public interface TropeRepository extends ElasticsearchRepository<Trope, String>{
 	
     @Query("{\"bool\" "
     		+ ": {\"must\": ["
-    			+ "{\"match\": {\"name\" : \"?0\"} },"
 				+ "{\"range\" : { \"related_tropes_count\": {\"gt\" : \"?1\"} } }," 
-				+ "{\"range\" : { \"media_urls_count\": {\"gt\" : \"?2\"} } }"
-				+"] } }, "
+				+ "{\"range\" : { \"media_urls_count\": {\"gt\" : \"?2\"} } },"
+				+ "{\"nested\": { \"path\": \"media\", \"query\": {"
+					+ "\"bool\": {"
+						+ "\"must\": ["
+							+ "{\"match\": {\"media.media_urls\" : \"?0\"} }"
+						+ "] } } } } ] } }, "
 		+"\"sort\": { \"?3\": \"asc\"}")
-    List<Trope> findByMediaWithFilterAndOrder(String name, int relatedTropesMin, int relatedMediaMin, String sortBy);
+    List<Trope> findByMediaWithFilterAndOrder(String mediaName, int relatedTropesMin, int relatedMediaMin, String sortBy);
     
 
     @Query("{\"bool\" "
     		+ ": {\"must\": ["
-    			+ "{\"match\": {\"name\" : \"?0\"} },"
 				+ "{\"range\" : { \"related_tropes_count\": {\"gt\" : \"?1\"} } }," 
 				+ "{\"range\" : { \"media_urls_count\": {\"gt\" : \"?2\"} } }," 
 				+ "{\"nested\": { \"path\": \"media\", \"query\": {"
-							+ "\"bool\": {"
-								+ "\"must\": ["
-									+ "{\"match\": {\"media.media_type\" : \"?3\"} }"
-								+ "] } } } } ] } }, "
+					+ "\"bool\": {"
+						+ "\"must\": ["
+							+ "{\"match\": {\"media.media_urls\" : \"?0\"} },"
+							+ "{\"match\": {\"media.media_type\" : \"?3\"} }"
+						+ "] } } } } ] } }, "
 		+"\"sort\": { \"?4\": \"asc\"}")
-    List<Trope> findByMediaWithFilterAndOrder(String name, int relatedTropesMin, int relatedMediaMin, String mediaType, String sortBy);
+    List<Trope> findByMediaWithFilterAndOrder(String mediaName, int relatedTropesMin, int relatedMediaMin, String mediaType, String sortBy);
     
     
     // Métodos de búsqueda sobre los tropos relacionados
 	
     @Query("{\"bool\" "
     		+ ": {\"must\": ["
-    			+ "{\"match\": {\"name\" : \"?0\"} },"
+    			+ "{\"match\": {\"related_tropes\" : \"?0\"} },"
 				+ "{\"range\" : { \"related_tropes_count\": {\"gt\" : \"?1\"} } }," 
 				+ "{\"range\" : { \"media_urls_count\": {\"gt\" : \"?2\"} } }"
 				+"] } }, "
@@ -120,14 +123,14 @@ public interface TropeRepository extends ElasticsearchRepository<Trope, String>{
 
     @Query("{\"bool\" "
     		+ ": {\"must\": ["
-    			+ "{\"match\": {\"name\" : \"?0\"} },"
+    			+ "{\"match\": {\"related_tropes\" : \"?0\"} },"
 				+ "{\"range\" : { \"related_tropes_count\": {\"gt\" : \"?1\"} } }," 
 				+ "{\"range\" : { \"media_urls_count\": {\"gt\" : \"?2\"} } }," 
 				+ "{\"nested\": { \"path\": \"media\", \"query\": {"
-							+ "\"bool\": {"
-								+ "\"must\": ["
-									+ "{\"match\": {\"media.media_type\" : \"?3\"} }"
-								+ "] } } } } ] } }, "
+					+ "\"bool\": {"
+						+ "\"must\": ["
+							+ "{\"match\": {\"media.media_type\" : \"?3\"} }"
+						+ "] } } } } ] } }, "
 		+"\"sort\": { \"?4\": \"asc\"}")
     List<Trope> findByRelatedTropeWithFilterAndOrder(String name, int relatedTropesMin, int relatedMediaMin, String mediaType, String sortBy);
 

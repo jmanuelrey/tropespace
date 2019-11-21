@@ -47,7 +47,7 @@
 	            <div id="main-article" class="article-content retro-folders">
 	            	<span th:text="${trope.laconic}"></span>
 	            	<hr>
-	            	<span th:text="${trope.content}"></span>
+	            	<span th:utext="${#strings.replace(#strings.escapeXml(trope.content),'&#10;','&lt;br&gt;')}"></span>
 	                <hr>
 	                <h2> Medios relacionados:</h2>
 	                <p></p>
