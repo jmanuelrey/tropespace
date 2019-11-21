@@ -21,7 +21,7 @@ public class TropeServiceImpl implements TropeService{
         this.tropeRepository = tropeRepository;
     }
 
-    public List<Trope> searchTropesByName(String name, Filter filter){
+    public List<Trope> searchTropes(String kewords, Filter filter){
     	String sortBy = "";
     	if(filter != null) {
     		sortBy = filter.getSortedBy().toString();
@@ -32,28 +32,12 @@ public class TropeServiceImpl implements TropeService{
 	    	// Esto se debe realizar de esta manera porque no hay forma de pasar una wildcard reconocible por Elastic en el campo media
 	    	// Idealmente se pasaría algo como "*" para que buscase sobre cualquier MediaType
 	    	if(filter.getMediaType() != "")
-	    		return tropeRepository.findByNameWithFilterAndOrder(name, filter.getRelatedTropesNumber(), filter.getMediaNumber(), filter.getMediaType(), sortBy);
-    		return tropeRepository.findByNameWithFilterAndOrder(name, filter.getRelatedTropesNumber(), filter.getMediaNumber(), sortBy);
+	    		return tropeRepository.findByNameWithFilterAndOrder(kewords, filter.getRelatedTropesNumber(), filter.getMediaNumber(), filter.getMediaType(), sortBy);
+    		return tropeRepository.findByNameWithFilterAndOrder(kewords, filter.getRelatedTropesNumber(), filter.getMediaNumber(), sortBy);
     	} else {
     		filter = new Filter(0, 0, "", Filter.SortBy.name);
-    		return tropeRepository.findByNameWithFilterAndOrder(name, filter.getRelatedTropesNumber(), filter.getMediaNumber(), sortBy);
+    		return tropeRepository.findByNameWithFilterAndOrder(kewords, filter.getRelatedTropesNumber(), filter.getMediaNumber(), sortBy);
     	}
-    }
-
-    public List<Trope> searchTropesByKeywords(String keywords, Filter filter){
-        return tropeRepository.findByNameOrLaconicOrContentOrderByName(keywords);
-        
-    }
-
-    public List<Trope> searchTropesByMedia(List<String> media, Filter filter){
-        return tropeRepository.findByMediaOrderByName(media);
-        
-    }
-
-    public List<Trope> searchTropesByRelatedTropeName(String tropeName, Filter filter){
-    	tropeName = StringUtils.capitalizeWords(tropeName);
-    	tropeName = tropeName.replaceAll("\\s","");
-        return tropeRepository.findByRelatedTropesOrderByName(tropeName);
     }
 
 }

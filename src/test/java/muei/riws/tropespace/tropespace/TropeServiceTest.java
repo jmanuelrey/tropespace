@@ -31,7 +31,7 @@ public class TropeServiceTest {
 		String resultName = "";
 		Filter filter = new Filter(0, 0, "", Filter.SortBy.name);
 
-		List<Trope> result = tropeService.searchTropesByName(tropeName, filter);
+		List<Trope> result = tropeService.searchTropes(tropeName, filter);
 
 		resultName = result.get(0).getName();
 
@@ -47,13 +47,13 @@ public class TropeServiceTest {
 		String tropeName = "...And That";
 		Filter filter = new Filter(0, 100, "", Filter.SortBy.name);
 
-		List<Trope> result = tropeService.searchTropesByName(tropeName, filter);
+		List<Trope> result = tropeService.searchTropes(tropeName, filter);
 
 		assertEquals(1, result.size());
 
 		filter.setRelatedTropesNumber(1000);
 
-		result = tropeService.searchTropesByName(tropeName, filter);
+		result = tropeService.searchTropes(tropeName, filter);
 
 		assertEquals(0, result.size());
 
@@ -65,12 +65,12 @@ public class TropeServiceTest {
 		String tropeName = "...And That";
 		Filter filter = new Filter(0, 0, "Series", Filter.SortBy.name);
 
-		List<Trope> result = tropeService.searchTropesByName(tropeName, filter);
+		List<Trope> result = tropeService.searchTropes(tropeName, filter);
 		assertEquals(2, result.size());
 
 		filter.setMediaType("VideoGame");
 
-		result = tropeService.searchTropesByName(tropeName, filter);
+		result = tropeService.searchTropes(tropeName, filter);
 		assertEquals(1, result.size());
 
 	}
