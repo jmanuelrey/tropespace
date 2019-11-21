@@ -3,17 +3,16 @@ package muei.riws.tropespace.tropespace.web.controller.view;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import muei.riws.tropespace.tropespace.model.Filter;
-import muei.riws.tropespace.tropespace.model.Trope;
 import muei.riws.tropespace.tropespace.service.TropeService;
 
-@RestController
+@Controller
 @RequestMapping("/tropes")
 public class TropeController {
     
@@ -21,7 +20,7 @@ public class TropeController {
     private TropeService tropeService;
     
     @GetMapping("/tropes/searchByName")
-    public String searchTropesByName(@RequestAttribute String name, @RequestAttribute Filter filter, Model model) {
+    public String searchTropesByName(@RequestAttribute String name, @RequestAttribute(required = false) Filter filter, Model model) {
         // We set the values needed by the template (TODO: pensar si enviarle tropo a tropo o la lista entera de tropos)
         model.addAttribute("tropes", tropeService.searchTropesByName(name, filter));
         // We return the template name as a string (TODO: tropePage es un nombre de ejemplo para la página con la lista de tropos)

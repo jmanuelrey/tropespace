@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="stylesheet"
+	href="https://static.tvtropes.org/design/assets/bundle.css?rev=279" />
+
+<!-- TODO: pasar nombre del tropo y mostrar -->
+<title>Resultados</title>
+</head>
+
+<body class="">
+	<header id="main-header-bar" class="headroom-element">
+		<div id="main-header-bar-inner">
+			<span id="header-spacer-left" class="header-spacer"></span> <a
+				href="https://tvtropes.org" id="main-header-logoButton"
+				class="no-dev"></a> <span id="header-spacer-right"
+				class="header-spacer"></span>
+			<h1
+				style="text-align: center; width: 200px; position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto">Resultados</h1>
+		</div>
+	</header>
+	<br>
+
+	<!-- TODO: botón para volver a la búsqueda -->
+	<div id="main-container">
+		<div id="action-bar-top" class="action-bar mobile-off"></div>
+		<div id="main-content" class="page-SearchResults class-search-results">
+			<div id="main-entry" class="with-sidebar">
+				<h1 itemprop="headline" class="entry-title">Búsqueda:
+					{search.text}}</h1>
+				<div id="main-article" class="article-content">
+					<div id="search-results">
+						<table>
+							<thead>
+								<tr>
+									<th>Nombre</th>
+									<th>URL</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:if="${tropes.empty}">
+									<td colspan="2">Ningún tropo concide con su búsqueda</td>
+								</tr>
+								<tr th:each="trope : tropes">
+									<td><span th:text="${trope.name}"> Nombre </span></td>
+									<td><span th:text="${trope.url}"> URL </span></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div id="main-content-sidebar"></div>
+		</div>
+		<div id="action-bar-bottom" class="action-bar tablet-off">
+			<a href="#top-of-page" class="scroll-to-top dead-button"
+				onclick="$('html, body').animate({scrollTop : 0},500);">Top</a>
+		</div>
+	</div>
+</body>
+
+</html>
