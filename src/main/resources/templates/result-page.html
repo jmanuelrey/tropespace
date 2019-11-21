@@ -42,7 +42,7 @@
 	<div id="main-container">
 		<div id="action-bar-top" class="action-bar mobile-off"></div>
 		<div id="main-content" class="page-SearchResults class-search-results">
-			<div id="main-entry" class="with-sidebar">
+			<div id="main-entry" class="with-sidebar" style="width:100%; max-width:100%">
 				<h1 itemprop="headline" class="entry-title" th:text="${'Búsqueda: &quot;' + requestedString +'&quot;'}"></h1>
 				<div id="main-article" class="article-content">
 					<div id="search-results">
@@ -51,22 +51,25 @@
 								<tr>
 									<th>Nombre</th>
 									<th>URL</th>
+									<th>Tropos relacionados</th>
+									<th>Medios relacionados</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr th:if="${tropes.empty}">
-									<td colspan="2">Ningún tropo concide con su búsqueda</td>
+									<td colspan="4">Ningún tropo concide con su búsqueda</td>
 								</tr>
 								<tr th:each="trope : ${tropes}">
 									<td><a th:text="${trope.name}" th:href="@{'trope?id='+${trope.id}}" > Nombre </a></td>
 									<td><a th:text="${trope.url}" th:href="${trope.url}"> URL </a></td>
+									<td><span th:text="${trope.relatedTropesCount}"> Tropos relacionados </span></td>
+									<td><span th:text="${trope.mediaUrlsCount}"> Medios relacionados </span></td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
 				</div>
 			</div>
-			<div id="main-content-sidebar"></div>
 		</div>
 		<div id="action-bar-bottom" class="action-bar tablet-off">
 			<a href="#top-of-page" class="scroll-to-top dead-button"

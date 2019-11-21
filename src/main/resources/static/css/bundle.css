@@ -1221,7 +1221,7 @@ span.message-counter {
 }
 
 .action-bar a.scroll-to-top:after {
-  content: "\F077";
+  content: "\2B9D";
   font-family: FontAwesome;
   color: #3c4b5e;
   text-align: center;

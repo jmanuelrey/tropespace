@@ -1,15 +1,10 @@
 package muei.riws.tropespace.tropespace.model;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Document(indexName = "tropes", type = "_doc")
@@ -23,11 +18,14 @@ public class Trope {
     @JsonProperty("related_tropes")
     private List<String> relatedTropes;
     private List<Media> media;
+    @JsonProperty("media_type_count")
     private Long mediaTypeCount;
+    @JsonProperty("media_urls_count")
     private Long mediaUrlsCount;
+    @JsonProperty("related_tropes_count")
     private Integer relatedTropesCount;
 
-    public Trope() {
+	public Trope() {
 
     }
 
