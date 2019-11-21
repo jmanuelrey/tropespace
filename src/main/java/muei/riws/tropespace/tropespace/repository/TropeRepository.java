@@ -58,20 +58,11 @@ public interface TropeRepository extends ElasticsearchRepository<Trope, String>{
     			+ "{\"match\": {\"name\" : \"?0\"} },"
 				+ "{\"range\" : { \"related_tropes_count\": {\"gt\" : \"?1\"} } }," 
 				+ "{\"range\" : { \"media_urls_count\": {\"gt\" : \"?2\"} } }," 
-				+ "{"
-					+ "\"nested\":"
-					+ "{"
-						+ "\"path\": \"media\","
-						+ "\"query\": {"
+				+ "{\"nested\": { \"path\": \"media\", \"query\": {"
 							+ "\"bool\": {"
 								+ "\"must\": ["
 									+ "{\"match\": {\"media.media_type\" : \"?3\"} }"
-								+ "]"
-							+ "}"
-						+ "}"
-					+ "}"
-				+ "}"
-				+"] } }, "
+								+ "] } } } } ] } }, "
 		+"\"sort\": { \"?4\": \"asc\"}")
     List<Trope> findByNameWithFilterAndOrder(String name, int relatedTropesMin, int relatedMediaMin, String mediaType, String sortBy);
 
