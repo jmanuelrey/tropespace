@@ -22,10 +22,22 @@ public class TropeServiceImpl implements TropeService{
     }
 
     public List<Trope> searchTropesByName(String name, Filter filter){
-    	if(filter.getRelatedTropesNumber() > 0)
-    		return tropeRepository.findByNameAndRelatedTropesCountGreaterThanAndOrderByName(name, filter.getRelatedTropesNumber());
-    		
-        return tropeRepository.findByNameOrderByName(name);
+    	String sortBy = "";
+    	if(filter != null) {
+    		sortBy = filter.getSortedBy().toString();
+	    	if(sortBy == "name")
+	    		sortBy = sortBy.concat(".raw");
+	    	
+	    	// TODO
+	    	// Esto se debe realizar de esta manera porque no hay forma de pasar una wildcard reconocible por Elastic en el campo media
+	    	// Idealmente se pasaría algo como "*" para que buscase sobre cualquier MediaType
+	    	if(filter.getMediaType() != "")
+	    		return tropeRepository.findByNameWithFilterAndOrder(name, filter.getRelatedTropesNumber(), filter.getMediaNumber(), filter.getMediaType(), sortBy);
+    		return tropeRepository.findByNameWithFilterAndOrder(name, filter.getRelatedTropesNumber(), filter.getMediaNumber(), sortBy);
+    	} else {
+    		filter = new Filter(0, 0, "", Filter.SortBy.name);
+    		return tropeRepository.findByNameWithFilterAndOrder(name, filter.getRelatedTropesNumber(), filter.getMediaNumber(), sortBy);
+    	}
     }
 
     public List<Trope> searchTropesByKeywords(String keywords, Filter filter){

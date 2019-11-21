@@ -20,46 +20,59 @@ import muei.riws.tropespace.tropespace.service.TropeService;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = EsConfig.class)
 public class TropeServiceTest {
-    
-    @Autowired
-    private TropeService tropeService;
-    
-    @Test
-    public void testSearchTropesByName() {
-        
-//        assertNotNull(testName);
-//        
-//        assertEquals(name, testName);
-        
-    }
-    
-    @Test
-    public void testSearchTropesByNameAndRelatedTropesCountGreaterThanAndOrderByName() {
-    	
-    	String tropeName = "...And That";
-    	String resultName = "";
-    	
-    	Filter filter = new Filter(0, 5, "", null);
-    	
-    	List<Trope> result = tropeService.searchTropesByName(tropeName, filter);
-    	
-    	resultName = result.get(0).getName();
-    	
-    	assertTrue(resultName.contains(tropeName));
-    	assertEquals(2, result.size()); 
-    	
-    	filter.setRelatedTropesNumber(100);
-    	
-    	result = tropeService.searchTropesByName(tropeName, filter);
-    	
-    	assertEquals(1, result.size()); 
-    	
-    	filter.setRelatedTropesNumber(1000);
-    	
-    	result = tropeService.searchTropesByName(tropeName, filter);
-    	
-    	assertEquals(0, result.size()); 
-    	
-    }
+
+	@Autowired
+	private TropeService tropeService;
+
+	@Test
+	public void testSearchTropesByName() {
+
+		String tropeName = "...And That";
+		String resultName = "";
+		Filter filter = new Filter(0, 0, "", Filter.SortBy.name);
+
+		List<Trope> result = tropeService.searchTropesByName(tropeName, filter);
+
+		resultName = result.get(0).getName();
+
+		assertNotNull(resultName);
+		assertTrue(resultName.contains(tropeName));
+		assertEquals(2, result.size());
+
+	}
+
+	@Test
+	public void testSearchTropesByNameAndRelatedTropesCountGreaterThanAndOrderByName() {
+
+		String tropeName = "...And That";
+		Filter filter = new Filter(0, 100, "", Filter.SortBy.name);
+
+		List<Trope> result = tropeService.searchTropesByName(tropeName, filter);
+
+		assertEquals(1, result.size());
+
+		filter.setRelatedTropesNumber(1000);
+
+		result = tropeService.searchTropesByName(tropeName, filter);
+
+		assertEquals(0, result.size());
+
+	}
+
+	@Test
+	public void testSearchTropesByNameAndFilterByMediaType() {
+
+		String tropeName = "...And That";
+		Filter filter = new Filter(0, 0, "Series", Filter.SortBy.name);
+
+		List<Trope> result = tropeService.searchTropesByName(tropeName, filter);
+		assertEquals(2, result.size());
+
+		filter.setMediaType("VideoGame");
+
+		result = tropeService.searchTropesByName(tropeName, filter);
+		assertEquals(1, result.size());
+
+	}
 
 }

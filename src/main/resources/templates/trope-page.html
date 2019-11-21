@@ -12,6 +12,18 @@
 	<title>Tropo</title>
 </head>
 
+<script>
+
+	function SmoothScrollTop() {
+		window.scroll({
+			  top: 0, 
+			  left: 0, 
+			  behavior: 'smooth'
+			});
+	}
+
+</script>
+
 <body class="">
 	<header id="main-header-bar" class="headroom-element">
 		<div id="main-header-bar-inner">
@@ -66,10 +78,10 @@
 	        	<!-- TODO: rellenar con estadísticas -->
 	        </div>
 	    </div>
-	    <div id="action-bar-bottom" class="action-bar tablet-off">
-	        <a href="#top-of-page" class="scroll-to-top dead-button" onclick="$('html, body').animate({scrollTop : 0},500);">Top</a>
-	        </nav>
-	    </div>
+		<div id="action-bar-bottom" class="action-bar tablet-off">
+			<a href="#top-of-page" class="scroll-to-top dead-button"
+				onclick="SmoothScrollTop()">Top</a>
+		</div>
 	</div>
 </body>
 

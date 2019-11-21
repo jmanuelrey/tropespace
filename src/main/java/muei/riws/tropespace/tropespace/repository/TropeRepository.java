@@ -13,6 +13,8 @@ public interface TropeRepository extends ElasticsearchRepository<Trope, String>{
     // Esto es así para que búsquedas sucesivas sean consistentes a la hora de implementar paginación
     // (Page, Pageable)
     
+	List<Trope> findByName(String name);
+	
     List<Trope> findByNameOrderByName(String name);
     
     List<Trope> findByNameOrLaconicOrContentOrderByName(String keywords);
@@ -24,15 +26,53 @@ public interface TropeRepository extends ElasticsearchRepository<Trope, String>{
     // TODO: las queries automaticas con "greater than" lo hacen sobre el propio criterio de búsqueda (p.ej: finbByMediaUrlsCountGreaterThan)
     // Para lo que necesitamos hacer, habrá que construir el string de la query y pasarselo a la anotación "@Query" encima de la firma del metodo
     
+    /*@Query("{\"bool\" "
+    		+ ": {\"must\": ["
+			+ "{\"match\": {\"name\" : \"?0\"} },"
+			+ "{\"range\" : { \"related_tropes_count\": {\"gt\" : \"?1\"} } }" 
+			+"] } }, "
+		+"\"sort\": { \"name.raw\": \"asc\"}")
+    List<Trope> findByNameAndRelatedTropesCountGreaterThanAndOrderByName(String name, int minCount);*/
+    
     @Query("{\"bool\" "
     		+ ": {\"must\": ["
-    			+ "{\"match\" "
-    				+ ": {\"name\" : \"?0\"}"
-    				+ "},"
-				+ "{ "
-					+ "\"range\" : { \"related_tropes_count\": {\"gt\" : \"?1\"}}" 
-				+"	}]}}, "
-		+"\"sort\": { \"name.raw\": \"asc\"}")
-    List<Trope> findByNameAndRelatedTropesCountGreaterThanAndOrderByName(String name, int minCount);
+    			+ "{\"match\": {\"name\" : \"?0\"} },"
+				+ "{\"range\" : { \"related_tropes_count\": {\"gt\" : \"?1\"} } }," 
+				+ "{\"range\" : { \"media_urls_count\": {\"gt\" : \"?2\"} } }"
+				+"] } }")
+    List<Trope> findByNameWithFilterAndOrder(String name, int relatedTropesMin, int relatedMediaMin);
+    
+
+    @Query("{\"bool\" "
+    		+ ": {\"must\": ["
+    			+ "{\"match\": {\"name\" : \"?0\"} },"
+				+ "{\"range\" : { \"related_tropes_count\": {\"gt\" : \"?1\"} } }," 
+				+ "{\"range\" : { \"media_urls_count\": {\"gt\" : \"?2\"} } }"
+				+"] } }, "
+		+"\"sort\": { \"?3\": \"asc\"}")
+    List<Trope> findByNameWithFilterAndOrder(String name, int relatedTropesMin, int relatedMediaMin, String sortBy);
+    
+
+    @Query("{\"bool\" "
+    		+ ": {\"must\": ["
+    			+ "{\"match\": {\"name\" : \"?0\"} },"
+				+ "{\"range\" : { \"related_tropes_count\": {\"gt\" : \"?1\"} } }," 
+				+ "{\"range\" : { \"media_urls_count\": {\"gt\" : \"?2\"} } }," 
+				+ "{"
+					+ "\"nested\":"
+					+ "{"
+						+ "\"path\": \"media\","
+						+ "\"query\": {"
+							+ "\"bool\": {"
+								+ "\"must\": ["
+									+ "{\"match\": {\"media.media_type\" : \"?3\"} }"
+								+ "]"
+							+ "}"
+						+ "}"
+					+ "}"
+				+ "}"
+				+"] } }, "
+		+"\"sort\": { \"?4\": \"asc\"}")
+    List<Trope> findByNameWithFilterAndOrder(String name, int relatedTropesMin, int relatedMediaMin, String mediaType, String sortBy);
 
 }

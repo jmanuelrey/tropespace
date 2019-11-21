@@ -8,10 +8,10 @@ public class Filter {
     	relatedTropes
     }
     
-    private Integer mediaNumber;
-    private Integer relatedTropesNumber;
-    private String mediaType;
-	private SortBy sortedBy;
+    private Integer mediaNumber = 0;
+    private Integer relatedTropesNumber = 0;
+    private String mediaType = "";
+	private SortBy sortedBy = SortBy.name;
     
     public Filter(Integer mediaNumber, Integer relatedTropesNumber, String mediaType, SortBy sortedBy) {
         this.mediaNumber = mediaNumber;
