@@ -82,8 +82,13 @@
 	            </div>
 	        </article>
 
-	        <div id="main-content-sidebar">
-	        	<!-- TODO: rellenar con estadísticas -->
+	        <div id="main-content-sidebar" style="text-align: center;">
+	        	<span style="font-size: 20px;">Aparición en medios:</span>
+	        	<hr>
+				<p th:each="media : ${trope.media}">
+					<span th:text="${media.mediaType} + ' -'"> Nombre </span>
+					<span th:text="${#lists.size(media.mediaUrls)}"> Valor </span>
+				</p>
 	        </div>
 	    </div>
 		<div id="action-bar-bottom" class="action-bar tablet-off">
