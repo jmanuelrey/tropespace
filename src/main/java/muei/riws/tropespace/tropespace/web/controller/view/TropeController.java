@@ -3,9 +3,11 @@ package muei.riws.tropespace.tropespace.web.controller.view;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,33 +23,61 @@ public class TropeController {
     @Autowired
     private TropeService tropeService;
     
-    private List<Trope> resultTropes;
+    private Page<Trope> resultTropes;
     
     // TODO quitar filters, meter parámetros
-    @GetMapping("/search")
+    @GetMapping("/search/{startIndex}")
     public String searchTropes(@RequestParam("searchBoxText") String searchBoxText,
     		@RequestParam("searchBy") String searchBy,
     		@RequestParam(defaultValue = "0") Integer relatedMediaMin,
     		@RequestParam(defaultValue = "0") Integer relatedTropesMin,
     		@RequestParam(defaultValue = "*") String mediaType,
     		@RequestParam("sortBy") String sortBy,
+    		@PathVariable int startIndex,
     		Model model) {
         // We set the values needed by the template (TODO: pensar si enviarle tropo a tropo o la lista entera de tropos)
     	Filter filter = new Filter(Filter.SearchBy.valueOf(searchBy), relatedMediaMin, relatedTropesMin, mediaType, Filter.SortBy.valueOf(sortBy));
-    	resultTropes = tropeService.searchTropes(searchBoxText, filter);
-    	
-    	
+    	resultTropes = tropeService.searchTropes(searchBoxText, filter, startIndex);
+
     	model.addAttribute("requestedString", searchBoxText);
         model.addAttribute("tropes", resultTropes);
+        model.addAttribute("currentIndex", startIndex);
+        
+        if (resultTropes.hasNext()) {
+            model.addAttribute("hasNext", resultTropes.hasNext());
+            int nextIndex = startIndex + 1;
+            String nextUrl = "/tropes/search/" + nextIndex +
+                    "?searchBoxText=" + searchBoxText +
+                    "&searchBy=" + searchBy +
+                    "&mediaType=" + mediaType +
+                    "&relatedMediaMin=" + relatedMediaMin +
+                    "&relatedTropesMin=" + relatedTropesMin + 
+                    "&sortBy=" + sortBy;
+            model.addAttribute("nextUrl", nextUrl);
+        }
+        
+        if (resultTropes.hasPrevious()) {
+            model.addAttribute("hasPrevious", resultTropes.hasPrevious());
+            int prevIndex = startIndex - 1;
+            String prevUrl = "/tropes/search/" + prevIndex +
+                    "?searchBoxText=" + searchBoxText +
+                    "&searchBy=" + searchBy +
+                    "&mediaType=" + mediaType +
+                    "&relatedMediaMin=" + relatedMediaMin +
+                    "&relatedTropesMin=" + relatedTropesMin + 
+                    "&sortBy=" + sortBy;
+            model.addAttribute("prevUrl", prevUrl);
+        }
+        
         // We return the template name as a string (TODO: tropePage es un nombre de ejemplo para la página con la lista de tropos)
         return "result-page";
     }
     
-	@GetMapping("/trope")
+	@GetMapping("/search/trope")
     public String showTrope(@RequestParam("id") String id, Model model) {
     	Trope trope = new Trope();
     	
-    	for(Trope tr : resultTropes) {
+    	for(Trope tr : resultTropes.toList()) {
     		if(tr.getId().contentEquals(id)) {
     			trope = tr;
     		}
