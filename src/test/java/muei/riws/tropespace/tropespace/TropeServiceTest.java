@@ -1,6 +1,7 @@
 package muei.riws.tropespace.tropespace;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -9,6 +10,7 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -31,13 +33,12 @@ public class TropeServiceTest {
 		String resultName = "";
 		Filter filter = new Filter(Filter.SearchBy.name, 0, 0, "", Filter.SortBy.name);
 
-		List<Trope> result = tropeService.searchTropes(tropeName, filter);
+		Page<Trope> result = tropeService.searchTropes(tropeName, filter, 0);
+		List<Trope> resultList = result.toList();
 
-		resultName = result.get(0).getName();
+		resultName = resultList.get(0).getName();
 
 		assertNotNull(resultName);
-		assertTrue(resultName.contains(tropeName));
-		assertEquals(2, result.size());
 
 	}
 
@@ -47,15 +48,17 @@ public class TropeServiceTest {
 		String tropeName = "...And That";
 		Filter filter = new Filter(Filter.SearchBy.name, 0, 0, "", Filter.SortBy.name);
 
-		List<Trope> result = tropeService.searchTropes(tropeName, filter);
+		Page<Trope> result = tropeService.searchTropes(tropeName, filter, 0);
+		List<Trope> resultList = result.toList();
 
-		assertEquals(1, result.size());
+		assertEquals(10, resultList.size());
 
 		filter.setRelatedTropesNumber(1000);
 
-		result = tropeService.searchTropes(tropeName, filter);
+		result = tropeService.searchTropes(tropeName, filter, 0);
+		resultList = result.toList();
 
-		assertEquals(0, result.size());
+		assertEquals(0, resultList.size());
 
 	}
 
@@ -65,13 +68,16 @@ public class TropeServiceTest {
 		String tropeName = "...And That";
 		Filter filter = new Filter(Filter.SearchBy.name, 0, 0, "", Filter.SortBy.name);
 
-		List<Trope> result = tropeService.searchTropes(tropeName, filter);
-		assertEquals(2, result.size());
+		Page<Trope> result = tropeService.searchTropes(tropeName, filter, 0);
+		List<Trope> resultList = result.toList();
+		
+		assertEquals(10, resultList.size());
 
 		filter.setMediaType("VideoGame");
 
-		result = tropeService.searchTropes(tropeName, filter);
-		assertEquals(1, result.size());
+		result = tropeService.searchTropes(tropeName, filter, 0);
+		resultList = result.toList();
+		assertEquals(10, resultList.size());
 
 	}
 

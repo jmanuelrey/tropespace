@@ -4,8 +4,10 @@ import muei.riws.tropespace.tropespace.model.Filter;
 import muei.riws.tropespace.tropespace.model.Trope;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 public interface TropeService {
 
-    List<Trope> searchTropes(String keywords, Filter filter);
+    Page<Trope> searchTropes(String keywords, Filter filter, int startIndex);
 
 }

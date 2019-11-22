@@ -1,7 +1,6 @@
 package muei.riws.tropespace.tropespace.repository;
 
 import muei.riws.tropespace.tropespace.model.Trope;
-import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.annotations.Query;
@@ -27,7 +26,7 @@ public interface TropeRepository extends ElasticsearchRepository<Trope, String>{
 				+ "{\"range\" : { \"media_urls_count\": {\"gt\" : \"?2\"} } }"
 				+"] } }, "
 		+"\"sort\": { \"?3\": \"asc\"}")
-    List<Trope> findByNameWithFilterAndOrder(String name, int relatedTropesMin, int relatedMediaMin, String sortBy);
+    Page<Trope> findByNameWithFilterAndOrder(String name, int relatedTropesMin, int relatedMediaMin, String sortBy, Pageable pageable);
     
 
     @Query("{\"bool\" "
@@ -41,7 +40,7 @@ public interface TropeRepository extends ElasticsearchRepository<Trope, String>{
 							+ "{\"match\": {\"media.media_type\" : \"?3\"} }"
 						+ "] } } } } ] } }, "
 		+"\"sort\": { \"?4\": \"asc\"}")
-    List<Trope> findByNameWithFilterAndOrder(String name, int relatedTropesMin, int relatedMediaMin, String mediaType, String sortBy);
+    Page<Trope> findByNameWithFilterAndOrder(String name, int relatedTropesMin, int relatedMediaMin, String mediaType, String sortBy, Pageable pageable);
 
 
 	// Métodos de búsqueda sobre todo el contenido
@@ -58,7 +57,7 @@ public interface TropeRepository extends ElasticsearchRepository<Trope, String>{
 				+"] } }, "
 		+"\"highlight\": { \"fields\": \"content\"},"
 		+"\"sort\": { \"?3\": \"asc\"}")
-    List<Trope> findByContentWithFilterAndOrder(String content, int relatedTropesMin, int relatedMediaMin, String sortBy);
+    Page<Trope> findByContentWithFilterAndOrder(String content, int relatedTropesMin, int relatedMediaMin, String sortBy, Pageable pageable);
     
 
     @Query("{\"bool\" : { "
@@ -77,7 +76,7 @@ public interface TropeRepository extends ElasticsearchRepository<Trope, String>{
 						+ "] } } } } ] } }, "
 		+"\"highlight\": { \"fields\": \"content\"},"
 		+"\"sort\": { \"?4\": \"asc\"}")
-    List<Trope> findByContentWithFilterAndOrder(String content, int relatedTropesMin, int relatedMediaMin, String mediaType, String sortBy);
+    Page<Trope> findByContentWithFilterAndOrder(String content, int relatedTropesMin, int relatedMediaMin, String mediaType, String sortBy, Pageable pageable);
     
     
     // Métodos de búsqueda sobre los medios
@@ -92,7 +91,7 @@ public interface TropeRepository extends ElasticsearchRepository<Trope, String>{
 							+ "{\"match\": {\"media.media_urls\" : \"?0\"} }"
 						+ "] } } } } ] } }, "
 		+"\"sort\": { \"?3\": \"asc\"}")
-    List<Trope> findByMediaWithFilterAndOrder(String mediaName, int relatedTropesMin, int relatedMediaMin, String sortBy);
+    Page<Trope> findByMediaWithFilterAndOrder(String mediaName, int relatedTropesMin, int relatedMediaMin, String sortBy, Pageable pageable);
     
 
     @Query("{\"bool\" "
@@ -106,7 +105,7 @@ public interface TropeRepository extends ElasticsearchRepository<Trope, String>{
 							+ "{\"match\": {\"media.media_type\" : \"?3\"} }"
 						+ "] } } } } ] } }, "
 		+"\"sort\": { \"?4\": \"asc\"}")
-    List<Trope> findByMediaWithFilterAndOrder(String mediaName, int relatedTropesMin, int relatedMediaMin, String mediaType, String sortBy);
+    Page<Trope> findByMediaWithFilterAndOrder(String mediaName, int relatedTropesMin, int relatedMediaMin, String mediaType, String sortBy, Pageable pageable);
     
     
     // Métodos de búsqueda sobre los tropos relacionados
@@ -118,7 +117,7 @@ public interface TropeRepository extends ElasticsearchRepository<Trope, String>{
 				+ "{\"range\" : { \"media_urls_count\": {\"gt\" : \"?2\"} } }"
 				+"] } }, "
 		+"\"sort\": { \"?3\": \"asc\"}")
-    List<Trope> findByRelatedTropeWithFilterAndOrder(String name, int relatedTropesMin, int relatedMediaMin, String sortBy);
+    Page<Trope> findByRelatedTropeWithFilterAndOrder(String name, int relatedTropesMin, int relatedMediaMin, String sortBy, Pageable pageable);
     
 
     @Query("{\"bool\" "
@@ -132,6 +131,6 @@ public interface TropeRepository extends ElasticsearchRepository<Trope, String>{
 							+ "{\"match\": {\"media.media_type\" : \"?3\"} }"
 						+ "] } } } } ] } }, "
 		+"\"sort\": { \"?4\": \"asc\"}")
-    List<Trope> findByRelatedTropeWithFilterAndOrder(String name, int relatedTropesMin, int relatedMediaMin, String mediaType, String sortBy);
+    Page<Trope> findByRelatedTropeWithFilterAndOrder(String name, int relatedTropesMin, int relatedMediaMin, String mediaType, String sortBy, Pageable pageable);
 
 }

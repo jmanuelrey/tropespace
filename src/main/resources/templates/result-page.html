@@ -22,6 +22,16 @@
 			  behavior: 'smooth'
 			});
 	}
+	
+	function nextPage(nextUrl) {
+		
+		window.location.replace(nextUrl);
+		
+	}
+	
+    function previousPage(prevUrl) {
+    	window.location.replace(prevUrl);
+    }
 
 </script>
 
@@ -58,11 +68,23 @@
 									<td colspan="2">Ningún tropo concide con su búsqueda</td>
 								</tr>
 								<tr th:each="trope : ${tropes}">
-									<td><a th:text="${trope.name}" th:href="@{'trope?id='+${trope.id}}" > Nombre </a></td>
+									<td><a th:text="${trope.name}" th:href="@{'/tropes/search/trope?id='+${trope.id}}" > Nombre </a></td>
 									<td><a th:text="${trope.url}" th:href="${trope.url}"> URL </a></td>
 								</tr>
 							</tbody>
 						</table>
+					</div>
+					<div id="pagination-btns" style="display: flex; justify-content: space-between">
+					   <div id="btn-previous" style="float: left">
+					       <button th:data1="${prevUrl}" th:if="${hasPrevious}"  class="action-bar mobile-off"
+                                    style="font-weight: heavy; font-size: 16px; width: 100%"
+                                    th:onclick="previousPage(this.getAttribute('data1'));"> Previous </button>
+					   </div>
+					   <div id="btn-next" style="float: right">
+					       <button th:data1="${nextUrl}" th:if="${hasNext}"  class="action-bar mobile-off"
+                                    style="font-weight: heavy; font-size: 16px; width: 100%"
+                                    th:onclick="nextPage(this.getAttribute('data1'));"> Next </button>
+					   </div>
 					</div>
 				</div>
 			</div>
