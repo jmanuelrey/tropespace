@@ -32,16 +32,16 @@
 				class="no-dev"><img src="/images/logo-white-small.png" style="width: inherit; margin-top: 12px"></a> <span id="header-spacer-right"
 				class="header-spacer"></span>
 			<h1
-				style="text-align: center; width: 200px; position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto">Buscar</h1>
+				style="text-align: center; width: 200px; position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto">Tropespace</h1>
 		</div>
 	</header>
 	<br>
 	<section
 		style="text-align: center; margin: 0px auto; height: auto; width: 450px; background: #fbfbfc; box-shadow: 0 0 7px 0 rgba(0, 0, 0, .08); border-radius: 8px; left: 0; top: 0; box-shadow: 0 0 7px 0 rgba(0, 0, 0, .08); box-sizing: border-box; padding: 32px">
-		<div class="action-bar mobile-off">Texto a buscar</div>
+		<div class="action-bar mobile-off" style="font-size: 18px">Búsqueda de texto</div>
 		<form class="search" action="#" th:action="@{tropes/search/0}" method="GET">
 			<!--<input class="submit-button" type="submit" value="&#x2315"> -->
-			<input name="searchBoxText" class="search-box" type="text" placeholder="Buscar" value="" required>
+			<input name="searchBoxText" class="search-box" type="text" placeholder="Introduce un texto..." value="" required>
 			<hr>
 			<div id="main-content-sidebar">
 				<div class="sidebar-item">
@@ -89,6 +89,7 @@
 								<option value="Webcomic">Webcomics</option>
 						</select>
 						</li> 
+						<br>
 						<li> Y tiene que tener por lo menos </li>
 						<li><input type="number" min=0 max=999
 							name="relatedMediaMin" value=0 style="width: 40px">

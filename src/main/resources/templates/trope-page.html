@@ -48,6 +48,7 @@
 	            	<hr>
 	            	<span th:utext="${#strings.replace(#strings.escapeXml(trope.content),'&#10;','&lt;br&gt;')}"></span>
 	                <hr>
+	                <span>URL original: <a th:href="${trope.url}" th:text="${trope.url}"></a></span>
 	                <h2> Medios relacionados:</h2>
 	                <p></p>
 	                <table>
