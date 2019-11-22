@@ -31,7 +31,7 @@ public class TropeServiceTest {
 
 		String tropeName = "...And That";
 		String resultName = "";
-		Filter filter = new Filter(Filter.SearchBy.name, 0, 0, "", Filter.SortBy.name);
+		Filter filter = new Filter(Filter.SearchBy.name, 0, 0, "", Filter.SortBy.name, Filter.SortByOrder.asc);
 
 		Page<Trope> result = tropeService.searchTropes(tropeName, filter, 0);
 		List<Trope> resultList = result.toList();
@@ -46,7 +46,7 @@ public class TropeServiceTest {
 	public void testSearchTropesByNameAndRelatedTropesCountGreaterThanAndOrderByName() {
 
 		String tropeName = "...And That";
-		Filter filter = new Filter(Filter.SearchBy.name, 0, 0, "", Filter.SortBy.name);
+		Filter filter = new Filter(Filter.SearchBy.name, 0, 0, "", Filter.SortBy.name, Filter.SortByOrder.asc);
 
 		Page<Trope> result = tropeService.searchTropes(tropeName, filter, 0);
 		List<Trope> resultList = result.toList();
@@ -66,7 +66,7 @@ public class TropeServiceTest {
 	public void testSearchTropesByNameAndFilterByMediaType() {
 
 		String tropeName = "...And That";
-		Filter filter = new Filter(Filter.SearchBy.name, 0, 0, "", Filter.SortBy.name);
+		Filter filter = new Filter(Filter.SearchBy.name, 0, 0, "", Filter.SortBy.name, Filter.SortByOrder.asc);
 
 		Page<Trope> result = tropeService.searchTropes(tropeName, filter, 0);
 		List<Trope> resultList = result.toList();

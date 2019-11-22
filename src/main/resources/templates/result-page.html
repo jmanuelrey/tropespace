@@ -68,9 +68,9 @@
 								<span>Ningún tropo concide con su búsqueda</span>
 							</div>
 							<div th:each="trope : ${tropes}">
-								<a style="font-size: 20px; text-decoration: underline"th:title="${trope.name}" th:text="${#strings.abbreviate(trope.name, 35)}" th:href="@{'/tropes/search/trope?id='+${trope.id}}" > Nombre </a>
+								<a style="font-size: 20px; text-decoration: underline"th:title="${trope.name}" th:text="${#strings.abbreviate(trope.name, 200)}" th:href="@{'/tropes/search/trope?id='+${trope.id}}" > Nombre </a>
 								<br>
-								<a style="font-size: 10px; text-decoration: underline" th:title="${trope.url}" th:text="${#strings.abbreviate(trope.url, 70)}" th:href="${trope.url}"> URL </a>
+								<a style="font-size: 10px; text-decoration: underline" th:title="${trope.url}" th:text="${#strings.abbreviate(trope.url, 200)}" th:href="${trope.url}"> URL </a>
 								<br>
 								<span th:text="${#strings.abbreviate(trope.content, 350)}" > Nombre </span>
 								<br>

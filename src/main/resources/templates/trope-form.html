@@ -103,11 +103,17 @@
 					<p class="sidebar-item-title" data-title="Ordenar por">Ordenar
 						por</p>
 					<ul class="padded font-s" style="text-align: left">
-						<li><input type="radio" name="sortBy" value="name" checked>Nombre</li>
+						<li><input type="radio" name="sortBy" value="_score" checked>Relevancia</li>
+						<li><input type="radio" name="sortBy" value="name">Nombre</li>
 						<li><input type="radio" name="sortBy" value="relatedMedia">Número
 							de medios relacionados</li>
 						<li><input type="radio" name="sortBy" value="relatedTropes">Número
 							de tropos relacionados</li>
+					</ul>
+					<hr>
+					<ul class="padded font-s" style="text-align: left">
+						<li><input title="De mayor a menor o en orden alfabético inverso" type="radio" name="sortByOrder" value="desc" checked>De más a menos</li>
+						<li><input title="De menor a mayor o en orden alfabético" type="radio" name="sortByOrder" value="asc">De menos a más</li>
 					</ul>
 				</div>
 			</div>

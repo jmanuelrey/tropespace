@@ -10,9 +10,15 @@ public class Filter {
 	}
 	
     public enum SortBy {
+    	_score,
     	name,
     	relatedMedia,
     	relatedTropes
+    }
+    
+    public enum SortByOrder {
+    	asc,
+    	desc
     }
     
     private SearchBy searchBy;
@@ -20,13 +26,15 @@ public class Filter {
     private Integer relatedTropesNumber = 0;
     private String mediaType = "";
 	private SortBy sortedBy = SortBy.name;
+	private SortByOrder sortedByOrder = SortByOrder.asc;
     
-    public Filter(SearchBy searchBy, Integer mediaNumber, Integer relatedTropesNumber, String mediaType, SortBy sortedBy) {
+    public Filter(SearchBy searchBy, Integer mediaNumber, Integer relatedTropesNumber, String mediaType, SortBy sortedBy, SortByOrder sortedByOrder) {
     	this.searchBy = searchBy;
         this.mediaNumber = mediaNumber;
         this.relatedTropesNumber = relatedTropesNumber;
         this.mediaType = mediaType;
         this.sortedBy = sortedBy;
+        this.sortedByOrder = sortedByOrder;
     }
 
     public SearchBy getSearchBy() {
@@ -67,6 +75,14 @@ public class Filter {
 
 	public void setSortedBy(SortBy sortedBy) {
 		this.sortedBy = sortedBy;
+	}
+
+	public SortByOrder getSortedByOrder() {
+		return sortedByOrder;
+	}
+
+	public void setSortedByOrder(SortByOrder sortedByOrder) {
+		this.sortedByOrder = sortedByOrder;
 	}
     
 }

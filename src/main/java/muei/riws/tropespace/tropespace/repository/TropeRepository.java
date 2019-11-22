@@ -15,7 +15,6 @@ public interface TropeRepository extends ElasticsearchRepository<Trope, String>{
     
     // TODO: las queries automaticas con "greater than" lo hacen sobre el propio criterio de búsqueda (p.ej: finbByMediaUrlsCountGreaterThan)
     // Para lo que necesitamos hacer, habrá que construir el string de la query y pasarselo a la anotación "@Query" encima de la firma del metodo
-    
 
 	// Métodos de búsqueda sobre el nombre
 	
@@ -24,9 +23,8 @@ public interface TropeRepository extends ElasticsearchRepository<Trope, String>{
     			+ "{\"match\": {\"name\" : \"?0\"} },"
 				+ "{\"range\" : { \"related_tropes_count\": {\"gt\" : \"?1\"} } }," 
 				+ "{\"range\" : { \"media_urls_count\": {\"gt\" : \"?2\"} } }"
-				+"] } }, "
-		+"\"sort\": { \"?3\": \"asc\"}")
-    Page<Trope> findByNameWithFilterAndOrder(String name, int relatedTropesMin, int relatedMediaMin, String sortBy, Pageable pageable);
+				+"] } }")
+    Page<Trope> findByNameWithFilterAndOrder(String name, int relatedTropesMin, int relatedMediaMin, Pageable pageable);
     
 
     @Query("{\"bool\" "
@@ -38,9 +36,8 @@ public interface TropeRepository extends ElasticsearchRepository<Trope, String>{
 					+ "\"bool\": {"
 						+ "\"must\": ["
 							+ "{\"match\": {\"media.media_type\" : \"?3\"} }"
-						+ "] } } } } ] } }, "
-		+"\"sort\": { \"?4\": \"asc\"}")
-    Page<Trope> findByNameWithFilterAndOrder(String name, int relatedTropesMin, int relatedMediaMin, String mediaType, String sortBy, Pageable pageable);
+						+ "] } } } } ] } }")
+    Page<Trope> findByNameWithFilterAndOrder(String name, int relatedTropesMin, int relatedMediaMin, String mediaType, Pageable pageable);
 
 
 	// Métodos de búsqueda sobre todo el contenido
@@ -55,9 +52,8 @@ public interface TropeRepository extends ElasticsearchRepository<Trope, String>{
 				+ "{\"range\" : { \"related_tropes_count\": {\"gt\" : \"?1\"} } }," 
 				+ "{\"range\" : { \"media_urls_count\": {\"gt\" : \"?2\"} } }"
 				+"] } }, "
-		+"\"highlight\": { \"fields\": \"content\"},"
-		+"\"sort\": { \"?3\": \"asc\"}")
-    Page<Trope> findByContentWithFilterAndOrder(String content, int relatedTropesMin, int relatedMediaMin, String sortBy, Pageable pageable);
+		+"\"highlight\": { \"fields\": \"content\"}")
+    Page<Trope> findByContentWithFilterAndOrder(String content, int relatedTropesMin, int relatedMediaMin, Pageable pageable);
     
 
     @Query("{\"bool\" : { "
@@ -73,10 +69,8 @@ public interface TropeRepository extends ElasticsearchRepository<Trope, String>{
 					+ "\"bool\": {"
 						+ "\"must\": ["
 							+ "{\"match\": {\"media.media_type\" : \"?3\"} }"
-						+ "] } } } } ] } }, "
-		+"\"highlight\": { \"fields\": \"content\"},"
-		+"\"sort\": { \"?4\": \"asc\"}")
-    Page<Trope> findByContentWithFilterAndOrder(String content, int relatedTropesMin, int relatedMediaMin, String mediaType, String sortBy, Pageable pageable);
+						+ "] } } } } ] } }")
+    Page<Trope> findByContentWithFilterAndOrder(String content, int relatedTropesMin, int relatedMediaMin, String mediaType, Pageable pageable);
     
     
     // Métodos de búsqueda sobre los medios
@@ -89,9 +83,8 @@ public interface TropeRepository extends ElasticsearchRepository<Trope, String>{
 					+ "\"bool\": {"
 						+ "\"must\": ["
 							+ "{\"match\": {\"media.media_urls\" : \"?0\"} }"
-						+ "] } } } } ] } }, "
-		+"\"sort\": { \"?3\": \"asc\"}")
-    Page<Trope> findByMediaWithFilterAndOrder(String mediaName, int relatedTropesMin, int relatedMediaMin, String sortBy, Pageable pageable);
+						+ "] } } } } ] } }")
+    Page<Trope> findByMediaWithFilterAndOrder(String mediaName, int relatedTropesMin, int relatedMediaMin, Pageable pageable);
     
 
     @Query("{\"bool\" "
@@ -103,9 +96,8 @@ public interface TropeRepository extends ElasticsearchRepository<Trope, String>{
 						+ "\"must\": ["
 							+ "{\"match\": {\"media.media_urls\" : \"?0\"} },"
 							+ "{\"match\": {\"media.media_type\" : \"?3\"} }"
-						+ "] } } } } ] } }, "
-		+"\"sort\": { \"?4\": \"asc\"}")
-    Page<Trope> findByMediaWithFilterAndOrder(String mediaName, int relatedTropesMin, int relatedMediaMin, String mediaType, String sortBy, Pageable pageable);
+						+ "] } } } } ] } }")
+    Page<Trope> findByMediaWithFilterAndOrder(String mediaName, int relatedTropesMin, int relatedMediaMin, String mediaType, Pageable pageable);
     
     
     // Métodos de búsqueda sobre los tropos relacionados
@@ -115,9 +107,8 @@ public interface TropeRepository extends ElasticsearchRepository<Trope, String>{
     			+ "{\"match\": {\"related_tropes\" : \"?0\"} },"
 				+ "{\"range\" : { \"related_tropes_count\": {\"gt\" : \"?1\"} } }," 
 				+ "{\"range\" : { \"media_urls_count\": {\"gt\" : \"?2\"} } }"
-				+"] } }, "
-		+"\"sort\": { \"?3\": \"asc\"}")
-    Page<Trope> findByRelatedTropeWithFilterAndOrder(String name, int relatedTropesMin, int relatedMediaMin, String sortBy, Pageable pageable);
+				+"] } }")
+    Page<Trope> findByRelatedTropeWithFilterAndOrder(String name, int relatedTropesMin, int relatedMediaMin, Pageable pageable);
     
 
     @Query("{\"bool\" "
@@ -129,8 +120,7 @@ public interface TropeRepository extends ElasticsearchRepository<Trope, String>{
 					+ "\"bool\": {"
 						+ "\"must\": ["
 							+ "{\"match\": {\"media.media_type\" : \"?3\"} }"
-						+ "] } } } } ] } }, "
-		+"\"sort\": { \"?4\": \"asc\"}")
-    Page<Trope> findByRelatedTropeWithFilterAndOrder(String name, int relatedTropesMin, int relatedMediaMin, String mediaType, String sortBy, Pageable pageable);
+						+ "] } } } } ] } }")
+    Page<Trope> findByRelatedTropeWithFilterAndOrder(String name, int relatedTropesMin, int relatedMediaMin, String mediaType, Pageable pageable);
 
 }
