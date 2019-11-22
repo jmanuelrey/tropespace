@@ -42,6 +42,9 @@ public class TropeController {
     	model.addAttribute("requestedString", searchBoxText);
         model.addAttribute("tropes", resultTropes);
         model.addAttribute("currentIndex", startIndex);
+        model.addAttribute("totalIndex", resultTropes.getTotalPages());
+        model.addAttribute("currentResults", resultTropes.getNumberOfElements());
+        model.addAttribute("totalResults", resultTropes.getTotalElements());
         
         if (resultTropes.hasNext()) {
             model.addAttribute("hasNext", resultTropes.hasNext());

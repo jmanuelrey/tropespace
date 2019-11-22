@@ -32,20 +32,19 @@
 			<a href="https://tvtropes.org" id="main-header-logoButton" class="no-dev"></a>
 			
 			<span id="header-spacer-right" class="header-spacer"></span>
-			<h1 style="text-align: center; width:200px; position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto">Tropespace</h1>
+			<h1 style="text-align: center; width:200px; position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto"><a style="color: inherit">Tropespace</a></h1>
 		</div>
 	</header>
 	<br>
 	
-    <!-- TODO: botón para volver a la búsqueda -->
 	<div id="main-container">
-	    <div id="action-bar-top" class="action-bar mobile-off"></div>
+	    <div id="action-bar-top" class="action-bar mobile-off"><a style="text-decoration: underline" th:href="@{/}">Volver a buscar</a></div>
 	    <div id="main-content" class="page-Article ">
 	        <article id="main-entry" class="with-sidebar">
 	            <h1 class="entry-title" th:text="${trope.name}"></h1>
 
 	            <div id="main-article" class="article-content retro-folders">
-	            	<span th:text="${trope.laconic}"></span>
+	            	<span style="font-style: italic" th:text="${trope.laconic}"></span>
 	            	<hr>
 	            	<span th:utext="${#strings.replace(#strings.escapeXml(trope.content),'&#10;','&lt;br&gt;')}"></span>
 	                <hr>

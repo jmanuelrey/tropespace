@@ -50,12 +50,38 @@
 
 	<!-- TODO: botón para volver a la búsqueda -->
 	<div id="main-container">
-		<div id="action-bar-top" class="action-bar mobile-off"></div>
+		<div id="action-bar-top" class="action-bar mobile-off"><a style="text-decoration: underline" th:href="@{/}">Volver a buscar</a></div>
 		<div id="main-content" class="page-SearchResults class-search-results">
 			<div id="main-entry" class="with-sidebar" style="width:100%; max-width:100%">
 				<h1 itemprop="headline" class="entry-title" th:text="${'Búsqueda: &quot;' + requestedString +'&quot;'}"></h1>
+				
+				
+				<br> <h1 style="font-size: 15px; font-weight: 100" th:text="${'Encontrados ' + totalResults +' resultados. Mostrando 10 resultados por página.'}"></h1>
+				<br> <h1 style="font-size: 15px; font-weight: 100" th:with="result=${currentIndex + 1}" th:text="${'Página ' + result +' de ' + totalIndex + '.'}"></h1>
+				<br>
+				<hr>
+				
 				<div id="main-article" class="article-content">
 					<div id="search-results">
+					
+						<div>
+							<div th:if="${tropes.empty}">
+								<span>Ningún tropo concide con su búsqueda</span>
+							</div>
+							<div th:each="trope : ${tropes}">
+								<a style="font-size: 20px; text-decoration: underline"th:title="${trope.name}" th:text="${#strings.abbreviate(trope.name, 35)}" th:href="@{'/tropes/search/trope?id='+${trope.id}}" > Nombre </a>
+								<br>
+								<a style="font-size: 10px; text-decoration: underline" th:title="${trope.url}" th:text="${#strings.abbreviate(trope.url, 70)}" th:href="${trope.url}"> URL </a>
+								<br>
+								<span th:text="${#strings.abbreviate(trope.content, 350)}" > Nombre </span>
+								<br>
+								<hr style="border: 1px dotted; width: 40%">
+								<span>Medios relacionados: <span th:text="${trope.mediaUrlsCount}"> Medios relacionados </span></span> | 
+								<span>Tropos relacionados: <span th:text="${trope.relatedTropesCount}"> </span> </span>
+								<hr style="border: 1px solid">
+							</div>
+						</div>
+						<!--			
 						<table>
 							<thead>
 								<tr>
@@ -70,14 +96,17 @@
 									<td colspan="4">Ningún tropo concide con su búsqueda</td>
 								</tr>
 								<tr th:each="trope : ${tropes}">
-									<td><a th:text="${trope.name}" th:href="@{'/tropes/search/trope?id='+${trope.id}}" > Nombre </a></td>
-									<td><a th:text="${trope.url}" th:href="${trope.url}"> URL </a></td>
-									<td><span th:text="${trope.relatedTropesCount}"> Tropos relacionados </span></td>
-									<td><span th:text="${trope.mediaUrlsCount}"> Medios relacionados </span></td>
+										<td>
+										<a th:title="${trope.name}" th:text="${#strings.abbreviate(trope.name, 35)}" th:href="@{'/tropes/search/trope?id='+${trope.id}}" > Nombre </a>
+										</td>
+										<td><a th:title="${trope.url}" th:text="${#strings.abbreviate(trope.url, 70)}" th:href="${trope.url}"> URL </a>
+										<td><span th:text="${trope.relatedTropesCount}"> Tropos relacionados </span></td>
+										<td><span th:text="${trope.mediaUrlsCount}"> Medios relacionados </span></td>
 								</tr>
 							</tbody>
-						</table>
+						</table>  -->	
 					</div>
+					<br>
 					<div id="pagination-btns" style="display: flex; justify-content: space-between">
 					   <div id="btn-previous" style="float: left">
 					       <button th:data1="${prevUrl}" th:if="${hasPrevious}"  class="action-bar mobile-off"

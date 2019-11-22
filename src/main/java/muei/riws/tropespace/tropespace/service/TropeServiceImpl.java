@@ -31,9 +31,21 @@ public class TropeServiceImpl implements TropeService{
     		filter = new Filter(Filter.SearchBy.name, 0, 0, "", Filter.SortBy.name);
     	}
 
-		String sortBy = filter.getSortedBy().toString();
-    	if(sortBy == "name")
-    		sortBy = sortBy.concat(".raw");
+		String sortBy = "";
+		
+		switch(filter.getSortedBy()) {
+			case relatedMedia:
+				sortBy = "media_urls_count";
+				break;
+			case relatedTropes:
+				sortBy = "related_tropes_count";
+				break;
+			case name:
+				sortBy = "name.raw";
+			default:
+				break;
+				
+		}
     	
     	// Pagination
     	Pageable pageable = PageRequest.of(startIndex, PAGE_COUNT, Sort.by(sortBy).ascending());
